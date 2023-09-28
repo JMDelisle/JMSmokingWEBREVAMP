@@ -6,6 +6,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>JS Final Project, First Page</title>
   <link rel="stylesheet" href="css/styles.css">
+  <script>
+    document.hidden = false;
+    document.visibilityState = "visible";
+  </script>
+
 </head>
 
 <body id="homebackground">
@@ -24,7 +29,26 @@
         <li><a href="quiz.html">Quiz Game</a></li>
         <li><a href="contact.html">Contact</a></li>
       </ul>
+      <div id="countdown">00:00</div>
     </nav>
+
+<!-- Add an input field for the user to specify the countdown time (in seconds) -->
+<!-- <div id="timer-input">
+  <label for="countdown-input">Set Timer (seconds):</label>
+  <input type="number" id="countdown-input" placeholder="Enter time in seconds">
+  <button id="start-btn" onclick="startCountdown()">Start</button>
+  <button id="stop-btn" onclick="stopCountdown()" disabled>Stop</button>
+  <button id="reset-btn" onclick="resetCountdown()" disabled>Reset</button>
+</div> -->
+
+<div id="countdown">00:00</div>
+<div id="timer-input">
+  <label for="countdown-input">Set Timer (seconds):</label>
+  <input type="number" id="countdown-input" placeholder="Enter time in seconds">
+  <button id="start-btn" onclick="startCountdown()">Start</button>
+  <button id="stop-btn" onclick="stopCountdown()" disabled>Stop</button>
+  <button id="reset-btn" onclick="resetCountdown()" disabled>Reset</button>
+</div>
 
 
     <section>

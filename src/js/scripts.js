@@ -314,3 +314,75 @@ function validateForm() {
 }
 
 //=======================================================
+
+// Initialize timer variables
+let countdownInterval;
+let remainingTime = 0; // Initialize to 0 when the page loads
+let isCounting = false;
+
+// Function to start the countdown
+function startCountdown() {
+  if (isCounting) return; // Prevent starting a new countdown while one is running
+
+  const countdownInput = document.getElementById('countdown-input');
+  const countdownDisplay = document.getElementById('countdown');
+
+  // Get the countdown duration from user input
+  const countdownDuration = parseInt(countdownInput.value, 10);
+  if (isNaN(countdownDuration) || countdownDuration <= 0) {
+    alert('Please enter a valid positive number for the countdown duration.');
+    return;
+  }
+
+  remainingTime = countdownDuration;
+  updateDisplay();
+
+  countdownInterval = setInterval(function() {
+    if (remainingTime <= 0) {
+      clearInterval(countdownInterval);
+      countdownDisplay.innerHTML = "Countdown Over!";
+      isCounting = false;
+    } else {
+      remainingTime--;
+      updateDisplay();
+    }
+  }, 1000);
+
+  isCounting = true;
+}
+
+// Function to stop the countdown
+function stopCountdown() {
+  if (!isCounting) return;
+
+  clearInterval(countdownInterval);
+  isCounting = false;
+}
+
+// Function to reset the countdown
+function resetCountdown() {
+  clearInterval(countdownInterval);
+  remainingTime = 0;
+  isCounting = false;
+  updateDisplay();
+
+  const countdownInput = document.getElementById('countdown-input');
+  countdownInput.value = '';
+}
+
+// Function to update the countdown display
+function updateDisplay() {
+  const countdownDisplay = document.getElementById('countdown');
+  const minutes = Math.floor(remainingTime / 60);
+  const seconds = remainingTime % 60;
+  countdownDisplay.innerHTML = `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+}
+
+// Save timer state to local storage when the page unloads
+window.addEventListener('beforeunload', function() {
+  if (isCounting) {
+    localStorage.setItem('countdownRemainingTime', remainingTime.toString());
+  } else {
+    localStorage.removeItem('countdownRemainingTime');
+  }
+});
